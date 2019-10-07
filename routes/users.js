@@ -34,4 +34,48 @@ router.post('/', async (req, res, next) => {
   }
 })
 
+router.get('/:id', async (req, res, next) => {
+  try {
+    const id = req.params.id
+    const user = await User.findById(id)
+    res.send(user)
+  } catch (err) {
+    res.status(500).send(err)
+  }
+})
+
+router.get('/name/:name', async (req, res, next) => {
+  try {
+    const name = req.params.name
+    const user = await User.find({name: name})
+    res.send(user)
+  } catch (err) {
+    res.status(500).send(err)
+  }
+})
+
+router.put('/:id', async (req, res, next) => {
+  try {
+    const user = await User.findByIdAndUpdate(req.params.id, req.body, (err, result) => {
+      if(err){
+        console.log(err)
+      }
+    })
+    res.send(user)
+  } catch (err) {
+    res.status(500).send(err)
+    console.log(err)
+  }
+})
+
+router.delete('/:id', async (req, res, next) => {
+  try {
+    const user = await User.findByIdAndDelete(req.params.id, (err, res) => {})
+    res.send("User has been deleted")
+  } catch (err) {
+    res.status(500).send(err)
+  }
+})
+
+
 module.exports = router;
