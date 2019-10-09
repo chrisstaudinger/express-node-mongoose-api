@@ -3,9 +3,12 @@ const mongoose = require('mongoose')
 const CommentSchema = mongoose.Schema({
   name: String,
   email: String,
-  movie_id: mongoose.Schema.Types.ObjectId,
   text: String,
-  date: Date
+  date: Date,
+  movie_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'movie'
+  },
 })
 
 module.exports = mongoose.model('Comment', CommentSchema)
