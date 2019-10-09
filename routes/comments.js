@@ -22,6 +22,16 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+router.get('/movies', async (req, res, next) => {
+  try {
+    const movies = await Comment.find().limit(5).populate('movie_id')
+    res.send(movies)
+  } catch (error) {
+    res.status(500).send(error)
+    console.log(error)
+  }
+})
+
 router.get('/:id', async (req, res, next) => {
   try {
     const id = req.params.id
