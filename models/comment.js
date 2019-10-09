@@ -7,7 +7,7 @@ const CommentSchema = mongoose.Schema({
   date: Date,
   movie_id: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'movie'
+    ref: 'Movie'
   },
 })
 
