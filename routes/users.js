@@ -14,6 +14,18 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+router.get('/index', (req, res, next) => {
+  // console.log('../'+__dirname)
+  console.log(process.cwd())
+  try {
+    res.sendFile(process.cwd()+'/static/users/allUsers.html')
+  } catch (err) {
+    res.status(500).send(err)
+    console.log(err)
+  }
+})
+  
+
 router.post('/', async (req, res, next) => {
  
   const user = new User({
