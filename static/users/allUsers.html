@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <title>All Users</title>
+</head>
+<body>
+  
+  <table class="table table-striped table-dark">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Password</th>
+        <th scope="col">Id</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+  
+  <script>
+    const createNode = (element) => document.createElement(element)
+    const append = (parent, element) => parent.appendChild(element)
+
+    const getUsers = async () => {
+    const resp = await fetch('http://localhost:3000/users')
+    const data = await resp.json()
+    console.log(data)
+    let users = []
+    data.forEach(user => {
+      users.push(user)
+    });
+    return users
+    }
+
+    const displayUsers = async () => {
+      
+      const users = await getUsers()
+      const tbody = document.querySelector('tbody')
+
+      let i = 1
+      users.forEach(user => {
+        let trNode = createNode('tr')
+        let tdNodeName = createNode('td')
+        let tdNodeEmail = createNode('td')
+        let tdNodePassword = createNode('td')
+        let tdNodeId = createNode('td')
+
+        trNode.setAttribute("id", `tr${i}`)
+        append(tbody, trNode)
+        append(trNode, tdNodeName)
+        append(trNode, tdNodeEmail)
+        append(trNode, tdNodePassword)
+        append(trNode, tdNodeId)
+
+        tdNodeName.innerHTML = user.name
+        tdNodeEmail.innerHTML = user.email
+        tdNodePassword.innerHTML = user.password
+        tdNodeId.innerHTML = user._id
+
+        i++
+      })
+    }
+    displayUsers()
+  </script>
+
+</body>
+</html>
