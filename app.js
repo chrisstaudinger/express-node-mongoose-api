@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors')
 
 const app = express();
 // Additional Imports
@@ -8,8 +9,8 @@ const morgan = require('morgan');
 
 app.use(morgan('dev'));
 app.use(express.json());
-
-
+app.use(cors())
+ 
 
 mongoose.connect('mongodb://localhost:27017/sample_mflix', {useUnifiedTopology: true, useNewUrlParser: true}, (err, success) => {
   if (err) { return console.error(err)}
@@ -18,15 +19,15 @@ mongoose.connect('mongodb://localhost:27017/sample_mflix', {useUnifiedTopology: 
 
 
 // Import Routes
-const commentRoutes = require('./routes/comments');
-const userRoutes = require('./routes/users');
+const commentRoutes = require('./routes/comments')
+const userRoutes = require('./routes/users')
 const sessionRoutes = require('./routes/sessions')
 const movieRoutes = require('./routes/movies')
 
 
-app.use('/comments', commentRoutes);
-app.use('/users', userRoutes);
+app.use('/comments', commentRoutes)
+app.use('/users', userRoutes)
 app.use('/sessions', sessionRoutes)
 app.use('/movies', movieRoutes)
 
-app.listen(3000, console.log('Listening on Port 3000'));
+app.listen(3000, console.log('Listening on Port 3000'))
